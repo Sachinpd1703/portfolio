@@ -1,28 +1,140 @@
+"use client";
+
+import { motion } from "framer-motion";
+import useMousePosition from "@/hooks/useMousePosition";
+
 export default function HeroContent() {
+  const { x, y } = useMousePosition();
+
   return (
-    <div className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between px-6">
+    <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl items-center justify-between overflow-hidden px-6">
+      {/* GRADIENT GLOW */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-40 blur-3xl"
+        style={{
+          background: `radial-gradient(
+            600px at ${x}px ${y}px,
+            rgba(255,255,255,0.12),
+            transparent 80%
+          )`,
+        }}
+      />
+
       {/* LEFT CONTENT */}
-      <div className="max-w-md">
-        <p className="mb-3 text-lg text-white/80">
-          Hey,
-        </p>
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        className="relative z-20 max-w-xl"
+      >
+        {/* SMALL TAG */}
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.2 }}
+          className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-md"
+        >
+          <div className="h-2 w-2 rounded-full bg-green-400" />
+          <span className="text-sm tracking-wide text-white/70">
+            Available for Freelance
+          </span>
+        </motion.div>
 
-        <h2 className="text-4xl font-bold leading-tight text-white md:text-6xl">
-          I&apos;m Sachin
-        </h2>
+        {/* GREETING */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="mb-4 text-lg tracking-wide text-white/60"
+        >
+          Hey, I&apos;m
+        </motion.p>
 
-        <p className="mt-4 text-white/70">
-          Creative Frontend Developer crafting immersive and interactive web
-          experiences.
-        </p>
-      </div>
+        {/* MAIN NAME */}
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.8 }}
+          className="text-5xl font-black leading-none tracking-tight text-white md:text-7xl"
+        >
+          Sachin
+        </motion.h1>
+
+        {/* ROLE */}
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.55, duration: 0.8 }}
+          className="mt-3 text-2xl font-medium text-white/80 md:text-3xl"
+        >
+          Creative Frontend Developer
+        </motion.h2>
+
+        {/* DESCRIPTION */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.7 }}
+          className="mt-6 max-w-lg text-base leading-relaxed text-white/60 md:text-lg"
+        >
+          Crafting cinematic, immersive and highly interactive digital
+          experiences with modern web technologies, motion design and creative
+          development.
+        </motion.p>
+
+        {/* CTA BUTTONS */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9 }}
+          className="mt-10 flex flex-wrap gap-4"
+        >
+          <button className="rounded-full bg-white px-7 py-3 text-sm font-medium text-black transition-all duration-300 hover:scale-105 hover:bg-white/90">
+            View Projects
+          </button>
+
+          <button className="rounded-full border border-white/15 bg-white/5 px-7 py-3 text-sm font-medium text-white backdrop-blur-md transition-all duration-300 hover:border-white/30 hover:bg-white/10">
+            Contact Me
+          </button>
+        </motion.div>
+      </motion.div>
 
       {/* BIG TYPOGRAPHY */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 z-0 -translate-x-1/2 -translate-y-1/2 select-none">
-        <h1 className="text-[22vw] font-black uppercase leading-none tracking-[-0.08em] text-white/20">
+        <motion.h1
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.08 }}
+          transition={{ duration: 2 }}
+          className="text-[22vw] font-black uppercase leading-none tracking-[-0.08em] text-white"
+        >
           SACHIN
-        </h1>
+        </motion.h1>
       </div>
+
+      {/* FLOATING BLUR ORBS */}
+      <motion.div
+        animate={{
+          y: [0, -20, 0],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute right-20 top-32 h-72 w-72 rounded-full bg-white/10 blur-3xl"
+      />
+
+      <motion.div
+        animate={{
+          y: [0, 30, 0],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute bottom-10 left-10 h-56 w-56 rounded-full bg-blue-500/10 blur-3xl"
+      />
     </div>
   );
 }

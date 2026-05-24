@@ -19,7 +19,7 @@ export default function HeroContent() {
 
       {/* BIG TYPOGRAPHY */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 z-0 -translate-x-1/2 -translate-y-1/2 select-none">
-        <h1 className="text-[22vw] font-black uppercase leading-none tracking-[-0.08em] text-white/90">
+        <h1 className="text-[22vw] font-black uppercase leading-none tracking-[-0.08em] text-white/20">
           SACHIN
         </h1>
       </div>

@@ -1,0 +1,27 @@
+<svg width="88" height="81" viewBox="0 0 88 81" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M85.3501 78.8486C52.3073 72.8778 34.1708 73.0714 3.01474 78.8486C-2.44691 37.8789 19.2148 0.848633 41.9079 0.848633C64.601 0.848633 91.1624 23.6971 85.3501 78.8486Z" fill="#EFB3A8"/>
+<path d="M4 78.061C36.2012 70.3199 52.7908 71.1055 84.4576 78.0609" stroke="#3B3532" stroke-width="5" stroke-linecap="round"/>
+<g opacity="0.46" filter="url(#filter0_fn_36_216)">
+<path d="M41.6649 4C15.5388 12.5637 7.11172 25.0493 4 72.5454C32.7919 65.1288 50.3764 67.5469 83.9418 72.5454C80.1182 21.7955 69.9666 8.47911 41.6649 4Z" fill="#D19A9A" fill-opacity="0.2"/>
+<path d="M41.6649 4C15.5388 12.5637 7.11172 25.0493 4 72.5454C32.7919 65.1288 50.3764 67.5469 83.9418 72.5454C80.1182 21.7955 69.9666 8.47911 41.6649 4Z" fill="#E35C5C" fill-opacity="0.2"/>
+</g>
+<defs>
+<filter id="filter0_fn_36_216" x="0" y="0" width="87.9419" height="76.5454" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="2" result="effect1_foregroundBlur_36_216"/>
+<feTurbulence type="fractalNoise" baseFrequency="2 2" stitchTiles="stitch" numOctaves="3" result="noise" seed="4389" />
+<feColorMatrix in="noise" type="luminanceToAlpha" result="alphaNoise" />
+<feComponentTransfer in="alphaNoise" result="coloredNoise1">
+<feFuncA type="discrete" tableValues="1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "/>
+</feComponentTransfer>
+<feComposite operator="in" in2="effect1_foregroundBlur_36_216" in="coloredNoise1" result="noise1Clipped" />
+<feFlood flood-color="rgba(0, 0, 0, 0.25)" result="color1Flood" />
+<feComposite operator="in" in2="noise1Clipped" in="color1Flood" result="color1" />
+<feMerge result="effect2_noise_36_216">
+<feMergeNode in="effect1_foregroundBlur_36_216" />
+<feMergeNode in="color1" />
+</feMerge>
+</filter>
+</defs>
+</svg>

@@ -24,8 +24,8 @@ export default function HeroClouds() {
   const BASE_Y = 300;
 
   // cursor movement strength
-  const MOVE_STRENGTH_X = 0.015;
-  const MOVE_STRENGTH_Y = 0.015;
+  const MOVE_STRENGTH_X = 0.1;
+  const MOVE_STRENGTH_Y = 0.1;
 
   // =========================
 
@@ -54,7 +54,7 @@ export default function HeroClouds() {
   }, [moveX, moveY, springX, springY]);
 
   return (
-    <div className="pointer-events-none absolute inset-0 isolate overflow-hidden">
+    <div className="pointer-events-none absolute inset-0 isolate overflow-hidden z-50">
       <motion.div
         style={{
           x: springX,

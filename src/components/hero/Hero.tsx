@@ -5,6 +5,7 @@ import HeroCharacter from "./HeroCharacter";
 import HeroClouds from "./clouds/HeroClouds";
 import HeroContent from "./HeroContent";
 import Navbar from "../navbar/navbar";
+import BackgroundClouds from "./clouds/BackgroundClouds";
 
 export default function Hero() {
   return (
@@ -19,10 +20,12 @@ export default function Hero() {
 
       <HeroContent />
 
+      <BackgroundClouds />
+
       <HeroCharacter />
 
       <HeroClouds />
-      
+
     </section>
   );
 }

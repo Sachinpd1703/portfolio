@@ -25,7 +25,7 @@ type CharacterSvgProps = {
 type SvgTarget = SVGGraphicsElement | SVGSVGElement;
 
 const mouthIds = ["mouth-neutral", "mouth-smile", "mouth-angry"] as const;
-const characterArtworkViewBox = "210 130 720 1080";
+const characterArtworkViewBox = "210 50 720 1200";
 
 const eyeIds: Record<EyeSide, { open: string; mid: string; closed: string }> = {
   left: {

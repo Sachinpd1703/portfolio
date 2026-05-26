@@ -11,6 +11,13 @@ import type { Expression } from "./types";
 type CharacterProps = {
   expression?: Expression;
   className?: string;
+  left?: string;
+  top?: string;
+  width?: string;
+  minWidth?: string;
+  translateX?: string;
+  translateY?: string;
+  scale?: number;
 };
 
 function resolveHoverExpression(event: React.PointerEvent<HTMLDivElement>) {
@@ -27,6 +34,13 @@ function resolveHoverExpression(event: React.PointerEvent<HTMLDivElement>) {
 export default function Character({
   expression = "idle",
   className = "",
+  left = "50%",
+  top = "60%",
+  width = "min(52vw,210px)",
+  minWidth = "160px",
+  translateX = "-50%",
+  translateY = "-50%",
+  scale = 2,
 }: CharacterProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [hoverExpression, setHoverExpression] = useState<Expression | null>(
@@ -44,10 +58,20 @@ export default function Character({
     [],
   );
 
+  const containerStyle: React.CSSProperties = {
+    ...stageStyle,
+    left,
+    top,
+    width,
+    minWidth,
+    transform: `translate(${translateX}, ${translateY}) scale(${scale})`,
+    transformOrigin: "center",
+  };
+
   return (
     <div
       ref={containerRef}
-      className={`absolute left-1/2 top-[58%] z-20 w-[min(42vw,210px)] min-w-[140px] -translate-x-1/2 -translate-y-1/2 select-none sm:top-[54%] sm:w-[min(24vw,240px)] md:top-[52%] md:w-[min(22vw,280px)] lg:top-[50%] lg:w-[min(20vw,310px)] xl:w-[min(18vw,330px)] ${className}`}
+      className={`absolute z-50 select-none ${className}`}
       onPointerEnter={(event) =>
         setHoverExpression(resolveHoverExpression(event) ?? "focused")
       }
@@ -55,7 +79,7 @@ export default function Character({
         setHoverExpression(resolveHoverExpression(event) ?? "focused")
       }
       onPointerLeave={() => setHoverExpression(null)}
-      style={stageStyle}
+      style={containerStyle}
       aria-hidden="true"
     >
       <motion.div

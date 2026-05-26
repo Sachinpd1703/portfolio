@@ -27,18 +27,6 @@ export default function HeroContent() {
         transition={{ duration: 1, ease: "easeOut" }}
         className="relative z-20 max-w-xl"
       >
-        {/* SMALL TAG */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2 }}
-          className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-md"
-        >
-          <div className="h-2 w-2 rounded-full bg-green-400" />
-          <span className="text-sm tracking-wide text-white/70">
-            Available for Freelance
-          </span>
-        </motion.div>
 
         {/* GREETING */}
         <motion.p
@@ -70,33 +58,6 @@ export default function HeroContent() {
           Creative Frontend Developer
         </motion.h2>
 
-        {/* DESCRIPTION */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.7 }}
-          className="mt-6 max-w-lg text-base leading-relaxed text-white/60 md:text-lg"
-        >
-          Crafting cinematic, immersive and highly interactive digital
-          experiences with modern web technologies, motion design and creative
-          development.
-        </motion.p>
-
-        {/* CTA BUTTONS */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9 }}
-          className="mt-10 flex flex-wrap gap-4"
-        >
-          <button className="rounded-full bg-white px-7 py-3 text-sm font-medium text-black transition-all duration-300 hover:scale-105 hover:bg-white/90">
-            View Projects
-          </button>
-
-          <button className="rounded-full border border-white/15 bg-white/5 px-7 py-3 text-sm font-medium text-white backdrop-blur-md transition-all duration-300 hover:border-white/30 hover:bg-white/10">
-            Contact Me
-          </button>
-        </motion.div>
       </motion.div>
 
       {/* BIG TYPOGRAPHY */}

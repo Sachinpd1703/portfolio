@@ -12,9 +12,9 @@ html {
 body {
   background: radial-gradient(
     circle at top,
-    #c218ff 0%,
-    #7b2ff7 45%,
-    #0f0f14 100%
+    #6118ff 0%,
+    #123173 45%,
+    #505082 100%
   );
 
   color: var(--foreground);

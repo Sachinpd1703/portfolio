@@ -22,12 +22,16 @@ export type CharacterSvgGroupId =
   | "hair"
   | "pupil-left"
   | "pupil-right"
-  | "eye-left"
-  | "eye-right"
-  | "eye-close-mid-left"
-  | "eye-close-mid-right"
-  | "eye-close-full-left"
-  | "eye-close-full-right"
+  // Eye open states (contain pupil, sclera, reflections)
+  | "eye-open-left"
+  | "eye-open-right"
+  // Eye mid-close overlay layers
+  | "eye-mid-left"
+  | "eye-mid-right"
+  // Eye fully-closed overlay layers
+  | "eye-closed-left"
+  | "eye-closed-right"
+  // Individual sub-elements (eye tracking + blink opacity)
   | "eye-highlight-left"
   | "eye-highlight-right"
   | "eyebrow-left"

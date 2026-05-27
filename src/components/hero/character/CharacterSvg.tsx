@@ -32,14 +32,14 @@ const characterArtworkViewBox = "210 50 720 1200";
 
 const eyeIds: Record<EyeSide, { open: string; mid: string; closed: string }> = {
   left: {
-    open: "eye-left",
-    mid: "eye-close-mid-left",
-    closed: "eye-close-full-left",
+    open: "eye-open-left",
+    mid: "eye-mid-left",
+    closed: "eye-closed-left",
   },
   right: {
-    open: "eye-right",
-    mid: "eye-close-mid-right",
-    closed: "eye-close-full-right",
+    open: "eye-open-right",
+    mid: "eye-mid-right",
+    closed: "eye-closed-right",
   },
 };
 
@@ -181,78 +181,170 @@ function CharacterRig() {
             />
           </g>
 
-          {/* ── Eyes ──────────────────────────────────────────────────────── */}
-          <g id="eye">
-            {/* Left eye — open state. ID is "eye-left" to match query hooks */}
-            <g id="eye-left">
-              <path
-                id="eye-highlight-left"
-                d="M546.021 302.522C569.953 302.523 589.354 321.924 589.354 345.856C589.354 346.744 589.325 347.624 589.272 348.498C587.906 325.796 569.066 307.807 546.021 307.807C522.976 307.807 504.135 325.796 502.769 348.498C502.716 347.624 502.687 346.744 502.687 345.856C502.687 321.924 522.088 302.522 546.021 302.522Z"
-                fill="#D48080"
+        {/* ── Eyes ──────────────────────────────────────────────────────── */}
+        <g id="eye">
+
+          {/* =========================================================
+              LEFT EYE : OPEN STATE (pupil + sclera + reflections)
+              ========================================================= */}
+          <g id="eye-open-left">
+            <path
+              id="eye-highlight-left"
+              d="M546.021 302.522C569.953 302.523 589.354 321.924 589.354 345.856C589.354 346.744 589.325 347.624 589.272 348.498C587.906 325.796 569.066 307.807 546.021 307.807C522.976 307.807 504.135 325.796 502.769 348.498C502.716 347.624 502.687 346.744 502.687 345.856C502.687 321.924 522.088 302.522 546.021 302.522Z"
+              fill="#D48080"
+            />
+            <circle id="eye-left-base" cx="546.021" cy="350.612" r="43.3337" fill="#EAD3C5" />
+            <g id="pupil-left-anchor">
+              <ellipse
+                id="pupil-left"
+                cx="543.643"
+                cy="348.498"
+                rx="29.858"
+                ry="32.7645"
+                fill="#1D1C2A"
               />
-              <circle id="eye-left-base" cx="546.021" cy="350.612" r="43.3337" fill="#EAD3C5" />
-              {/* Pupil anchor — outer group allows rotation/scale rigging later */}
-              <g id="pupil-left-anchor">
-                <ellipse
-                  id="pupil-left"
-                  cx="543.643"
-                  cy="348.498"
-                  rx="29.858"
-                  ry="32.7645"
-                  fill="#1D1C2A"
-                />
-              </g>
-              <g id="eye-reflection-left">
-                <ellipse id="left-big-reflectation" cx="559.761" cy="333.966" rx="7.39843" ry="7.66266" fill="#FDF3FB" />
-                <ellipse id="left-small-reflectation" cx="564.517" cy="348.234" rx="3.69922" ry="3.96345" fill="white" />
-              </g>
             </g>
-
-            {/* Left eyelid — mid blink (hidden by default, toggled by blink hook) */}
-            <g id="eye-close-mid-left" style={{ opacity: 0 }}>
-              <ellipse cx="546.021" cy="350.612" rx="43.3337" ry="18" fill="#F7C7B9" />
-            </g>
-
-            {/* Left eyelid — fully closed (hidden by default) */}
-            <g id="eye-close-full-left" style={{ opacity: 0 }}>
-              <ellipse cx="546.021" cy="350.612" rx="43.3337" ry="6" fill="#F7C7B9" />
-            </g>
-
-            {/* Right eye — open state. ID is "eye-right" to match query hooks */}
-            <g id="eye-right">
-              <path
-                id="eye-highlight-right"
-                d="M445.563 353.782C445.595 354.656 445.613 355.537 445.613 356.425C445.613 378.314 435.676 396.06 423.418 396.06C411.16 396.06 401.223 378.314 401.223 356.425C401.223 355.537 401.24 354.656 401.273 353.782C402.034 374.44 411.657 390.774 423.418 390.774C435.179 390.774 444.801 374.44 445.563 353.782ZM423.418 311.506C435.676 311.506 445.613 329.251 445.613 351.141C445.613 352.028 445.595 352.909 445.563 353.782C444.801 333.125 435.179 316.791 423.418 316.791C411.657 316.791 402.034 333.125 401.273 353.782C401.24 352.909 401.223 352.028 401.223 351.141C401.223 329.251 411.16 311.506 423.418 311.506Z"
-                fill="#D48080"
-              />
-              <ellipse id="eye-right-base" cx="423.418" cy="356.425" rx="22.1953" ry="39.6345" fill="#EAD3C5" />
-              {/* Pupil anchor — outer group allows rotation/scale rigging later */}
-              <g id="pupil-right-anchor">
-                <ellipse
-                  id="pupil-right"
-                  cx="423.154"
-                  cy="351.141"
-                  rx="15.0611"
-                  ry="28.5368"
-                  fill="#1D1C2A"
-                />
-              </g>
-              <g id="eye-reflection-right">
-                <ellipse id="right-big-reflectation" cx="430.024" cy="337.929" rx="4.49191" ry="5.81306" fill="#FDF3FB" />
-                <ellipse id="right-small-reflectation" cx="433.194" cy="350.876" rx="2.37807" ry="2.90653" fill="white" />
-              </g>
-            </g>
-
-            {/* Right eyelid — mid blink */}
-            <g id="eye-close-mid-right" style={{ opacity: 0 }}>
-              <ellipse cx="423.418" cy="356.425" rx="22.1953" ry="16" fill="#F7C7B9" />
-            </g>
-
-            {/* Right eyelid — fully closed */}
-            <g id="eye-close-full-right" style={{ opacity: 0 }}>
-              <ellipse cx="423.418" cy="356.425" rx="22.1953" ry="5" fill="#F7C7B9" />
+            <g id="eye-reflection-left">
+              <ellipse id="left-big-reflectation" cx="559.761" cy="333.966" rx="7.39843" ry="7.66266" fill="#FDF3FB" />
+              <ellipse id="left-small-reflectation" cx="564.517" cy="348.234" rx="3.69922" ry="3.96345" fill="white" />
             </g>
           </g>
+
+          {/* =========================================================
+              RIGHT EYE : OPEN STATE (pupil + sclera + reflections)
+              ========================================================= */}
+          <g id="eye-open-right">
+            <path
+              id="eye-highlight-right"
+              d="M445.563 353.782C445.595 354.656 445.613 355.537 445.613 356.425C445.613 378.314 435.676 396.06 423.418 396.06C411.16 396.06 401.223 378.314 401.223 356.425C401.223 355.537 401.24 354.656 401.273 353.782C402.034 374.44 411.657 390.774 423.418 390.774C435.179 390.774 444.801 374.44 445.563 353.782ZM423.418 311.506C435.676 311.506 445.613 329.251 445.613 351.141C445.613 352.028 445.595 352.909 445.563 353.782C444.801 333.125 435.179 316.791 423.418 316.791C411.657 316.791 402.034 333.125 401.273 353.782C401.24 352.909 401.223 352.028 401.223 351.141C401.223 329.251 411.16 311.506 423.418 311.506Z"
+              fill="#D48080"
+            />
+            <ellipse id="eye-right-base" cx="423.418" cy="356.425" rx="22.1953" ry="39.6345" fill="#EAD3C5" />
+            <g id="pupil-right-anchor">
+              <ellipse
+                id="pupil-right"
+                cx="423.154"
+                cy="351.141"
+                rx="15.0611"
+                ry="28.5368"
+                fill="#1D1C2A"
+              />
+            </g>
+            <g id="eye-reflection-right">
+              <ellipse id="right-big-reflectation" cx="430.024" cy="337.929" rx="4.49191" ry="5.81306" fill="#FDF3FB" />
+              <ellipse id="right-small-reflectation" cx="433.194" cy="350.876" rx="2.37807" ry="2.90653" fill="white" />
+            </g>
+          </g>
+
+          {/* =========================================================
+              LEFT EYE : MID-CLOSE OVERLAY (drawn on top, toggled by blink)
+              ========================================================= */}
+          <g id="eye-mid-left">
+            <path
+              id="eye-close"
+              d="M588.293 358.414C554.425 354.489 535.836 354.616 503.901 358.414C498.303 331.481 520.506 307.137 543.766 307.137C567.026 307.137 594.251 322.157 588.293 358.414Z"
+              fill="#EFB3A8"
+            />
+            <path
+              id="eyelide"
+              d="M504.911 357.896C537.917 352.807 554.921 353.324 587.378 357.896"
+              stroke="#3B3532"
+              strokeWidth={5}
+              strokeLinecap="round"
+            />
+            <g id="highlight-mid-close-left-eye" opacity={0.46} filter="url(#filter3_fn_73_974)">
+              <path
+                d="M543.517 309.208C516.738 314.838 508.101 323.046 504.911 354.271C534.422 349.395 552.446 350.985 586.85 354.271C582.931 320.907 572.526 312.153 543.517 309.208Z"
+                fill="#D19A9A"
+                fillOpacity={0.2}
+              />
+              <path
+                d="M543.517 309.208C516.738 314.838 508.101 323.046 504.911 354.271C534.422 349.395 552.446 350.985 586.85 354.271C582.931 320.907 572.526 312.153 543.517 309.208Z"
+                fill="#E35C5C"
+                fillOpacity={0.2}
+              />
+            </g>
+          </g>
+
+          {/* =========================================================
+              RIGHT EYE : MID-CLOSE OVERLAY
+              ========================================================= */}
+          <g id="eye-mid-right">
+            <path
+              id="eye-close_2"
+              d="M444.977 357.885C427.509 354.728 417.921 354.831 401.451 357.885C398.564 336.227 410.015 316.651 422.012 316.651C434.008 316.651 448.049 328.73 444.977 357.885Z"
+              fill="#EFB3A8"
+            />
+            <path
+              id="eyelide_2"
+              d="M401.972 357.468C418.995 353.376 427.765 353.791 444.505 357.468"
+              stroke="#3B3532"
+              strokeWidth={5}
+              strokeLinecap="round"
+            />
+            <g id="highlight-mid-close-left-eye_2" opacity={0.46} filter="url(#filter4_fn_73_974)">
+              <path
+                d="M421.883 318.317C408.072 322.844 403.617 329.445 401.972 354.553C417.193 350.632 426.488 351.91 444.232 354.553C442.211 327.725 436.844 320.685 421.883 318.317Z"
+                fill="#D19A9A"
+                fillOpacity={0.2}
+              />
+              <path
+                d="M421.883 318.317C408.072 322.844 403.617 329.445 401.972 354.553C417.193 350.632 426.488 351.91 444.232 354.553C442.211 327.725 436.844 320.685 421.883 318.317Z"
+                fill="#E35C5C"
+                fillOpacity={0.2}
+              />
+            </g>
+          </g>
+
+          {/* =========================================================
+              LEFT EYE : FULLY-CLOSED OVERLAY
+              ========================================================= */}
+          <g id="eye-closed-left">
+            <ellipse id="full" cx="545.847" cy="350.158" rx="43.3484" ry="43.1579" fill="#EFB3A8" />
+            <path
+              id="full-close-left-eye"
+              d="M544.79 393.579C560.974 393.143 579.953 385.062 586.255 367.74C587.03 365.609 584.283 364.824 583.062 366.736C572.37 383.479 554.805 388.845 543.733 389.105C534.711 389.317 520.763 380.289 511.725 370.016C510.161 368.239 506.969 369.493 508.2 371.515C515.772 383.95 530.883 393.953 544.79 393.579Z"
+              fill="#393431"
+            />
+            <g id="highlight-mid-close-left-eye_3" opacity={0.46} filter="url(#filter5_fn_73_974)">
+              <path
+                d="M546.825 308.053C540.947 308.052 497.047 308.043 506.762 357C516.523 406.184 582.942 386.666 586.851 353.579C590.761 320.492 552.455 308.053 546.904 308.053L546.825 308.053Z"
+                fill="#D19A9A"
+                fillOpacity={0.2}
+              />
+              <path
+                d="M546.825 308.053C540.947 308.052 497.047 308.043 506.762 357C516.523 406.184 582.942 386.666 586.851 353.579C590.761 320.492 552.455 308.053 546.904 308.053L546.825 308.053Z"
+                fill="#E35C5C"
+                fillOpacity={0.2}
+              />
+            </g>
+          </g>
+
+          {/* =========================================================
+              RIGHT EYE : FULLY-CLOSED OVERLAY
+              ========================================================= */}
+          <g id="eye-closed-right">
+            <ellipse id="fully-close-eye" cx="423.203" cy="355.946" rx="22.2028" ry="39.4737" fill="#EDAFA5" />
+            <path
+              id="right-eyelide"
+              d="M408.401 385.681C404.231 378.21 403.186 373.684 402.542 369.006C402.4 367.983 403.489 367.615 403.881 368.571C405.484 372.475 406.449 377.378 408.401 380.946C412.646 388.704 418.427 392.531 422.41 392.525C426.915 392.519 433.327 389.699 438.534 380.42C439.861 378.054 440.919 375.227 441.949 372.081C442.323 370.937 443.678 371.242 443.433 372.42C442.231 378.183 440.618 381.6 438.005 385.681C431.926 393.841 427.432 395.946 422.41 395.946C414.745 394.896 411.044 389.63 408.401 385.681Z"
+              fill="#3B3532"
+            />
+            <g id="highlight-mid-close-left-eye_4" opacity={0.46} filter="url(#filter6_fn_73_974)">
+              <path
+                d="M421.882 317.525C415.274 317.525 402.057 320.157 402.057 358.578C402.057 396.999 446.198 399.631 444.348 358.578C442.498 317.525 428.49 317.525 421.882 317.525Z"
+                fill="#D19A9A"
+                fillOpacity={0.2}
+              />
+              <path
+                d="M421.882 317.525C415.274 317.525 402.057 320.157 402.057 358.578C402.057 396.999 446.198 399.631 444.348 358.578C442.498 317.525 428.49 317.525 421.882 317.525Z"
+                fill="#E35C5C"
+                fillOpacity={0.2}
+              />
+            </g>
+          </g>
+
+        </g>
 
           {/* ── Eyebrows ──────────────────────────────────────────────────── */}
           <g id="eyebrows">
@@ -327,10 +419,12 @@ function CharacterRig() {
 
           {/* ── Mouth ─────────────────────────────────────────────────────── */}
           <g id="mouth">
+
+            {/* Neutral mouth — default state */}
             <g id="mouth-neutral">
               <path
                 id="mouth-shadow"
-                d="M478.141 480.613L452.511 480.878C452.133 486.636 455.583 487.666 465.987 486.955C474.68 485.721 477.936 484.519 478.141 480.613Z"
+                d="M478.658 477L453.028 477.264C452.65 483.023 456.1 484.053 466.503 483.342C475.197 482.107 478.453 480.906 478.658 477Z"
                 fill="#D98D7D"
               />
               <path
@@ -339,9 +433,37 @@ function CharacterRig() {
                 fill="#BC5942"
               />
             </g>
-            {/* Placeholder mouth states — populated/shown by expression system */}
-            <g id="mouth-smile" style={{ opacity: 0 }} />
-            <g id="mouth-angry" style={{ opacity: 0 }} />
+
+            {/* Smile mouth — happy expression */}
+            <g id="mouth-smile">
+              <path
+                id="mouth-shadow_2"
+                d="M476.269 480L453.025 480.204C452.682 484.66 455.812 485.457 465.246 484.906C473.131 483.951 476.083 483.022 476.269 480Z"
+                fill="#D98D7D"
+              />
+              <g id="mouth-smile_2" filter="url(#filter9_d_73_974)">
+                <path
+                  d="M463.986 471.47C451.138 471.767 443.063 470.81 433.062 467.7C432.052 467.386 431.49 468.394 432.397 468.937C439.697 473.302 453.082 476.28 463.986 475.764C475.351 475.225 498.176 470.271 509.733 462.425C510.649 461.803 509.99 460.819 508.98 461.271C495.687 467.225 483.944 470.057 463.986 471.47Z"
+                  fill="#BC5942"
+                />
+              </g>
+            </g>
+
+            {/* Angry mouth — angry expression */}
+            <g id="mouth-angry">
+              <path
+                id="mouth-shadow_3"
+                d="M481 477L452.031 477.283C451.604 483.447 455.504 484.55 467.262 483.789C477.088 482.467 480.769 481.181 481 477Z"
+                fill="#D98D7D"
+              />
+              <g id="mouth-angry_2" filter="url(#filter10_d_73_974)">
+                <path
+                  d="M464.793 458.1C446.869 459.718 438.735 462.157 432.059 470.158C431.42 470.923 432.235 471.973 433.171 471.627C456.803 462.88 479.07 464.682 517.376 471.191C518.563 471.392 519.003 469.822 517.869 469.418C494.01 460.918 473.222 457.339 464.793 458.1Z"
+                  fill="#BC5942"
+                />
+              </g>
+            </g>
+
           </g>
 
           {/* ── Hoodie + body ─────────────────────────────────────────────── */}
@@ -518,6 +640,103 @@ function CharacterRig() {
           <stop stopColor="#EA8E87" />
           <stop offset="1" stopColor="#FACFBD" />
         </linearGradient>
+
+        {/* ── Eyelid overlay blur filters ──────────────────────────────── */}
+        <filter
+          id="filter3_fn_73_974"
+          x="490"
+          y="295"
+          width="115"
+          height="80"
+          filterUnits="userSpaceOnUse"
+          colorInterpolationFilters="sRGB"
+        >
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+          <feGaussianBlur stdDeviation="4" result="effect1_foregroundBlur_73_974" />
+        </filter>
+
+        <filter
+          id="filter4_fn_73_974"
+          x="388"
+          y="305"
+          width="72"
+          height="62"
+          filterUnits="userSpaceOnUse"
+          colorInterpolationFilters="sRGB"
+        >
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+          <feGaussianBlur stdDeviation="4" result="effect1_foregroundBlur_73_974" />
+        </filter>
+
+        <filter
+          id="filter5_fn_73_974"
+          x="488"
+          y="294"
+          width="118"
+          height="126"
+          filterUnits="userSpaceOnUse"
+          colorInterpolationFilters="sRGB"
+        >
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+          <feGaussianBlur stdDeviation="4" result="effect1_foregroundBlur_73_974" />
+        </filter>
+
+        <filter
+          id="filter6_fn_73_974"
+          x="388"
+          y="304"
+          width="72"
+          height="110"
+          filterUnits="userSpaceOnUse"
+          colorInterpolationFilters="sRGB"
+        >
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+          <feGaussianBlur stdDeviation="4" result="effect1_foregroundBlur_73_974" />
+        </filter>
+
+        {/* ── Mouth expression drop-shadow filters ─────────────────────── */}
+        <filter
+          id="filter9_d_73_974"
+          x="420"
+          y="453"
+          width="102"
+          height="34"
+          filterUnits="userSpaceOnUse"
+          colorInterpolationFilters="sRGB"
+        >
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+          <feOffset dy="2" />
+          <feGaussianBlur stdDeviation="2" />
+          <feComposite in2="hardAlpha" operator="out" />
+          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0" />
+          <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_73_974" />
+          <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_73_974" result="shape" />
+        </filter>
+
+        <filter
+          id="filter10_d_73_974"
+          x="420"
+          y="449"
+          width="110"
+          height="36"
+          filterUnits="userSpaceOnUse"
+          colorInterpolationFilters="sRGB"
+        >
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+          <feOffset dy="2" />
+          <feGaussianBlur stdDeviation="2" />
+          <feComposite in2="hardAlpha" operator="out" />
+          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0" />
+          <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_73_974" />
+          <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_73_974" result="shape" />
+        </filter>
+
       </defs>
     </svg>
   );
@@ -659,7 +878,9 @@ function CharacterSvg({
       const ids = eyeIds[side];
       const highlightId = side === "left" ? "eye-highlight-left" : "eye-highlight-right";
 
-      setOpacity(rootRef.current?.querySelector(`#${ids.open}`) ?? null, activeFrame === "open" ? 1 : 0);
+      // eye-open-left/right opacity is intentionally never changed —
+      // the mid and closed groups are overlays drawn on top, so the base eye
+      // stays fully visible at all times and the overlays are toggled instead.
       setOpacity(rootRef.current?.querySelector(`#${ids.mid}`) ?? null, activeFrame === "mid" ? 1 : 0);
       setOpacity(
         rootRef.current?.querySelector(`#${ids.closed}`) ?? null,

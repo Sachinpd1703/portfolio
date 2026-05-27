@@ -1,3 +1,4 @@
+// src/components/hero/character/hooks/useBlink.ts
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -21,42 +22,66 @@ export function useBlink(): BlinkState {
   const timersRef = useRef<number[]>([]);
 
   useEffect(() => {
-    const timers = timersRef.current;
+  const timers = timersRef.current;
 
-    const setEyeFrame = (side: EyeSide, frame: BlinkFrame) => {
-      setBlinkState((current) => {
-        if (current[side] === frame) return current;
-        return { ...current, [side]: frame };
-      });
-    };
+  const setBothEyes = (frame: BlinkFrame) => {
+    setBlinkState((current) => {
+      if (
+        current.left === frame &&
+        current.right === frame
+      ) { 
+        return current;
+      }
 
-    const scheduleBlink = (side: EyeSide) => {
-      const delay = randomBetween(BLINK_MIN_DELAY, BLINK_MAX_DELAY);
+      return {
+        left: frame,
+        right: frame,
+      };
+    });
+  };
 
-      const timer = window.setTimeout(() => {
-        const frameDelay = randomBetween(FRAME_MIN_DELAY, FRAME_MAX_DELAY);
+  const scheduleBlink = () => {
+    const delay = randomBetween(
+      BLINK_MIN_DELAY,
+      BLINK_MAX_DELAY,
+    );
 
-        setEyeFrame(side, "mid");
-        timers.push(
-          window.setTimeout(() => setEyeFrame(side, "closed"), frameDelay),
-          window.setTimeout(() => setEyeFrame(side, "mid"), frameDelay * 2),
-          window.setTimeout(() => {
-            setEyeFrame(side, "open");
-            scheduleBlink(side);
-          }, frameDelay * 3),
-        );
-      }, delay + (side === "right" ? randomBetween(0, 90) : 0));
+    const timer = window.setTimeout(() => {
+      const frameDelay = randomBetween(
+        FRAME_MIN_DELAY,
+        FRAME_MAX_DELAY,
+      );
 
-      timers.push(timer);
-    };
+      setBothEyes("mid");
 
-    sides.forEach(scheduleBlink);
+      timers.push(
+        window.setTimeout(
+          () => setBothEyes("closed"),
+          frameDelay,
+        ),
 
-    return () => {
-      timers.forEach(window.clearTimeout);
-      timersRef.current = [];
-    };
-  }, []);
+        window.setTimeout(
+          () => setBothEyes("mid"),
+          frameDelay * 2,
+        ),
+
+        window.setTimeout(() => {
+          setBothEyes("open");
+          scheduleBlink();
+        }, frameDelay * 3),
+      );
+    }, delay);
+
+    timers.push(timer);
+  };
+
+  scheduleBlink();
+
+  return () => {
+    timers.forEach(window.clearTimeout);
+    timersRef.current = [];
+  };
+}, []);
 
   return blinkState;
 }

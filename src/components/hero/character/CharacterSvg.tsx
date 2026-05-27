@@ -50,13 +50,12 @@ function setSvgTransformDefaults(element: SvgTarget | null) {
   element.style.willChange = "transform, opacity";
 }
 
-function setOpacity(element: Element | null, opacity: number) {
+function setOpacity(element: Element | null, opacity: number, instant = false) {
   if (!(element instanceof SVGElement)) return;
   element.style.opacity = String(opacity);
-  element.style.transition = "opacity 90ms ease-out";
+  element.style.transition = instant ? "none" : "opacity 90ms ease-out";
 }
 
-const HIGHLIGHT_SCALE = 0.7;
 
 function frameToKey(frame: BlinkFrame) {
   return frame === "closed" ? "closed" : frame;
@@ -166,6 +165,25 @@ function CharacterRig() {
               </g>
             </g>
           </g>
+
+          {/* ── Eyebrows ──────────────────────────────────────────────────── */}
+          <g id="eyebrows">
+            <path
+              id="eyebrow-left"
+              d="M504.84 299.096C499.179 300.575 497.001 299.907 494.271 296.982C492.069 293.909 491.491 291.285 491.589 288.783C491.669 286.744 492.246 285.396 493.967 282.705C493.819 285.249 493.77 286.548 493.703 288.254C493.703 291.425 493.586 296.137 495.064 296.189C495.064 289.583 495.856 285.62 498.499 283.242C506.426 278.75 524.124 275.928 532.32 276.108C556.365 276.636 574.596 280.299 586.487 290.64C557.165 290.529 540.398 290.903 504.84 299.096Z"
+              fill="#343234"
+            />
+            <path
+              id="eyebrow-right"
+              d="M399.109 298.568C400.958 291.123 401.809 286.9 417.077 282.979C423.941 282.446 427.355 282.511 430.816 284.828C437.643 290.618 439.667 294.958 440.065 304.646C440.565 298.35 440.552 294.706 437.951 287.197C439.868 288.526 440.685 289.835 441.386 293.803C442.1 298.197 442.246 300.566 441.386 304.372L440.065 304.646C430.024 301.73 429.76 300.233 419.19 298.568C410.471 297.195 406.867 297.621 399.109 298.568Z"
+              fill="#343234"
+            />
+          </g>
+          
+          {/* ── Spectacles ────────────────────────────────────────────────── */}
+          <g id="spectacles">
+            <path fillRule="evenodd" clipRule="evenodd" d="M622.527 298.901L710.523 317.42L724 320.066L722.415 327.738L710.523 326.15L701.01 324.828L669.828 320.066C646.04 316.728 634.479 315.222 619.62 313.716C616.051 315.545 614.464 317.408 611.957 321.388C610.504 352.866 608.918 365.179 603.765 378.533C600.995 386.673 597.259 390.047 589.495 395.465C574.767 401.394 565.662 402.902 548.007 402.608C529.593 402.91 519.971 401.458 504.405 395.2C495.461 385.645 492.182 378.82 488.55 364.776C484.305 348.63 482.257 340.569 480.358 331.442C475.073 321.388 465.296 324.299 461.068 331.442C460.615 336.911 460.493 338.928 460.28 342.474L460.275 342.553C458.304 388.094 450.718 396.971 433.321 402.872C424.509 404.832 416.75 405.062 401.347 404.989C390.87 404.303 385.127 402.784 375.45 393.613C368.286 380.459 366.126 371.124 363.294 353.4C361.711 339.124 360.741 331.772 358.009 326.68C355.973 325.114 354.674 323.76 352.196 320.859L352.186 320.687C351.937 316.357 351.795 313.877 352.724 310.012C368.193 303.858 376.869 301.268 392.362 298.901C409.51 296.654 419.709 296.972 437.814 299.43C449.681 301.841 453.392 305.037 457.368 312.393C471.215 312.455 477.812 312.352 482.472 311.335C487.229 298.372 499.913 295.197 518.939 292.287C537.966 289.377 557.083 289.393 585.267 291.493C599.23 293.007 607.492 294.492 622.527 297.578V298.901ZM490.4 312.393C494.892 294.933 599.008 285.938 602.179 311.071C605.35 336.204 605.35 353.929 596.63 376.945C592.383 384.145 589.922 387.604 585.003 389.909C572.743 394.851 564.645 396.237 548.007 396.258C526.522 395.192 514.524 394.582 508.898 389.38C503.895 384.877 501.084 381.877 495.949 364.776C491.469 350.095 489.833 342.777 488.55 331.442C488.408 327.85 488.063 326.496 487.838 325.615C487.773 325.361 487.718 325.146 487.681 324.928C487.479 323.738 487.808 322.457 489.939 314.184C490.084 313.62 490.238 313.024 490.4 312.393ZM368.315 316.362C373.686 298.82 446.61 300.945 449.969 314.51C453.126 327.256 453.081 331.591 452.91 348.191C452.899 349.258 452.887 350.375 452.876 351.548C448.277 383.381 443.06 392.759 429.886 397.052C417.995 399.962 393.116 401.336 383.113 393.084C374.591 386.053 365.951 348.048 366.9 326.102L398.78 336.5L398.78 332.003L368.124 317.022C368.185 316.797 368.249 316.577 368.315 316.362Z" fill="#4E4064"/>
+            <path d="M352.186 320.687C351.937 316.357 351.795 313.877 352.724 310.012C368.193 303.858 376.869 301.268 392.362 298.901C409.51 296.654 419.709 296.972 437.814 299.43C449.681 301.841 453.392 305.037 457.368 312.393C471.215 312.455 477.812 312.352 482.472 311.335C487.229 298.372 499.913 295.197 518.939 292.287C537.966 289.377 557.083 289.393 585.267 291.493C599.23 293.007 607.492 294.492 622.527 297.578V298.901L710.523 317.42L724 320.066L722.415 327.738L710.523 326.15L701.01 324.828L669.828 320.066C646.04 316.728 634.479 315.222 619.62 313.716C616.051 315.545 614.464 317.408 611.957 321.388C610.504 352.866 608.918 365.179 603.765 378.533C600.995 386.673 597.259 390.047 589.495 395.465C574.767 401.394 565.662 402.902 548.007 402.608C529.593 402.91 519.971 401.458 504.405 395.2C495.461 385.645 492.182 378.82 488.55 364.776C484.305 348.63 482.257 340.569 480.358 331.442C475.073 321.388 465.296 324.299 461.068 331.442C460.615 336.911 460.493 338.928 460.28 342.474M352.724 310.012L368.124 317.022M352.186 320.687L352.196 320.859C354.674 323.76 355.973 325.114 358.009 326.68C360.741 331.772 361.711 339.124 363.294 353.4C366.126 371.124 368.286 380.459 375.45 393.613C385.127 402.784 390.87 404.303 401.347 404.989C416.75 405.062 424.509 404.832 433.321 402.872C450.718 396.971 458.304 388.094 460.275 342.553C460.277 342.526 460.278 342.5 460.28 342.474M352.196 320.859C352.192 320.801 352.189 320.744 352.186 320.687M352.196 320.859L366.9 326.102M460.275 342.553L460.28 342.474M366.9 326.102C365.951 348.048 374.591 386.053 383.113 393.084C393.116 401.336 417.995 399.962 429.886 397.052C443.06 392.759 448.277 383.381 452.876 351.548C452.887 350.375 452.899 349.258 452.91 348.191C453.081 331.591 453.126 327.256 449.969 314.51C446.61 300.945 373.686 298.82 368.315 316.362C368.249 316.577 368.185 316.797 368.124 317.022M366.9 326.102L398.78 336.5L398.78 332.003L368.124 317.022M366.9 326.102C367.052 322.604 367.446 319.514 368.124 317.022M490.4 312.393C494.892 294.933 599.008 285.938 602.179 311.071C605.35 336.204 605.35 353.929 596.63 376.945C592.383 384.145 589.922 387.604 585.003 389.909C572.743 394.851 564.645 396.237 548.007 396.258C526.522 395.192 514.524 394.582 508.898 389.38C503.895 384.877 501.084 381.877 495.949 364.776C491.469 350.095 489.833 342.777 488.55 331.442C488.408 327.85 488.063 326.496 487.838 325.615C487.773 325.361 487.718 325.146 487.681 324.928C487.479 323.738 487.808 322.457 489.939 314.184C490.084 313.62 490.238 313.024 490.4 312.393Z" stroke="black" strokeOpacity="0.43"/></g>
 
           {/* ── Ear ───────────────────────────────────────────────────────── */}
           <g id="ear-left">
@@ -345,20 +363,6 @@ function CharacterRig() {
           </g>
 
         </g>
-
-          {/* ── Eyebrows ──────────────────────────────────────────────────── */}
-          <g id="eyebrows">
-            <path
-              id="eyebrow-left"
-              d="M504.84 299.096C499.179 300.575 497.001 299.907 494.271 296.982C492.069 293.909 491.491 291.285 491.589 288.783C491.669 286.744 492.246 285.396 493.967 282.705C493.819 285.249 493.77 286.548 493.703 288.254C493.703 291.425 493.586 296.137 495.064 296.189C495.064 289.583 495.856 285.62 498.499 283.242C506.426 278.75 524.124 275.928 532.32 276.108C556.365 276.636 574.596 280.299 586.487 290.64C557.165 290.529 540.398 290.903 504.84 299.096Z"
-              fill="#343234"
-            />
-            <path
-              id="eyebrow-right"
-              d="M399.109 298.568C400.958 291.123 401.809 286.9 417.077 282.979C423.941 282.446 427.355 282.511 430.816 284.828C437.643 290.618 439.667 294.958 440.065 304.646C440.565 298.35 440.552 294.706 437.951 287.197C439.868 288.526 440.685 289.835 441.386 293.803C442.1 298.197 442.246 300.566 441.386 304.372L440.065 304.646C430.024 301.73 429.76 300.233 419.19 298.568C410.471 297.195 406.867 297.621 399.109 298.568Z"
-              fill="#343234"
-            />
-          </g>
 
           {/* ── Beard / mustache ──────────────────────────────────────────── */}
           <g id="beard">
@@ -756,8 +760,8 @@ function CharacterSvg({
 
   const eyeElementsRef = useRef<{
     pupils: Array<SvgTarget | null>;
-    highlights: Array<SvgTarget | null>;
-  }>({ pupils: [], highlights: [] });
+    reflections: Array<SvgTarget | null>;
+  }>({ pupils: [], reflections: [] });
 
   const getById = useCallback((id: CharacterSvgGroupId) => {
     return rootRef.current?.querySelector<SvgTarget>(`#${id}`) ?? null;
@@ -786,6 +790,8 @@ function CharacterSvg({
   );
 
   useEffect(() => {
+    // eye-highlight-left/right (cornea arc) and the sclera base circles
+    // are intentionally excluded — they must stay static.
     const animatedTargets = [
       fallbackCharacterGroup(),
       getById("hoodie"),
@@ -794,8 +800,8 @@ function CharacterSvg({
       getById("hair"),
       getById("pupil-left"),
       getById("pupil-right"),
-      getById("eye-highlight-left"),
-      getById("eye-highlight-right"),
+      getById("eye-reflection-left"),
+      getById("eye-reflection-right"),
       getById("eyebrow-left"),
       getById("eyebrow-right"),
     ];
@@ -804,7 +810,7 @@ function CharacterSvg({
 
     eyeElementsRef.current = {
       pupils: [getById("pupil-left"), getById("pupil-right")],
-      highlights: [getById("eye-highlight-left"), getById("eye-highlight-right")],
+      reflections: [getById("eye-reflection-left"), getById("eye-reflection-right")],
     };
   }, [fallbackCharacterGroup, getById]);
 
@@ -877,32 +883,41 @@ function CharacterSvg({
       const activeFrame = frameToKey(eyeFrames[side]);
       const ids = eyeIds[side];
       const highlightId = side === "left" ? "eye-highlight-left" : "eye-highlight-right";
+      const midEl = rootRef.current?.querySelector(`#${ids.mid}`) ?? null;
+      const closedEl = rootRef.current?.querySelector(`#${ids.closed}`) ?? null;
 
-      // eye-open-left/right opacity is intentionally never changed —
-      // the mid and closed groups are overlays drawn on top, so the base eye
-      // stays fully visible at all times and the overlays are toggled instead.
-      setOpacity(rootRef.current?.querySelector(`#${ids.mid}`) ?? null, activeFrame === "mid" ? 1 : 0);
-      setOpacity(
-        rootRef.current?.querySelector(`#${ids.closed}`) ?? null,
-        activeFrame === "closed" ? 1 : 0,
-      );
+      if (expressionConfig.eyeOpenness === "mid") {
+        // ── Half-close expression (e.g. angry) ───────────────────────────
+        // eye-mid is the permanent expression layer — never touch its opacity.
+        // eye-closed blinks *on top of* eye-mid so the half-close is always visible.
+        setOpacity(midEl, 1);
+        setOpacity(closedEl, activeFrame === "closed" ? 1 : 0);
+      } else {
+        // ── Normal open expression ────────────────────────────────────────
+        // Both overlay layers cycle: mid shows on mid-frame, closed on closed-frame.
+        setOpacity(midEl, activeFrame === "mid" ? 1 : 0);
+        setOpacity(closedEl, activeFrame === "closed" ? 1 : 0);
+      }
+
+      // Pupil & highlight hidden only when fully closed (redundant for overlay
+      // model but kept for correctness with future non-overlay rig changes).
       setOpacity(getById(side === "left" ? "pupil-left" : "pupil-right"), activeFrame === "closed" ? 0 : 1);
       setOpacity(getById(highlightId), activeFrame === "closed" ? 0 : 1);
     });
-  }, [eyeFrames, getById]);
+  }, [eyeFrames, expressionConfig.eyeOpenness, getById]);
+
 
   const syncEyeMotion = (x: number, y: number) => {
-    const highlightX = x * HIGHLIGHT_SCALE;
-    const highlightY = y * HIGHLIGHT_SCALE;
-
+    // Pupils and their specular reflections travel together — same translate.
+    // The cornea arc (eye-highlight-*) and sclera base never move.
     eyeElementsRef.current.pupils.forEach((pupil) => {
       if (!pupil) return;
       pupil.style.transform = `translate(${x}px, ${y}px)`;
     });
 
-    eyeElementsRef.current.highlights.forEach((highlight) => {
-      if (!highlight) return;
-      highlight.style.transform = `translate(${highlightX}px, ${highlightY}px)`;
+    eyeElementsRef.current.reflections.forEach((reflection) => {
+      if (!reflection) return;
+      reflection.style.transform = `translate(${x}px, ${y}px)`;
     });
   };
 

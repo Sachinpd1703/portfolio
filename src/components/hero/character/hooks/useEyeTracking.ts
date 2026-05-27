@@ -6,15 +6,15 @@ import { useMotionValue, useSpring } from "framer-motion";
 import { eyeSpring } from "../config/motion";
 import type { EyeTrackingMotion } from "../types";
 
-const MAX_PUPIL_X = 3.5;
-const MAX_PUPIL_Y = 2.5;
-const CENTER_DEAD_ZONE = 18;
+const MAX_PUPIL_X = 5;
+const MAX_PUPIL_Y = 5;
+const CENTER_DEAD_ZONE = 58;
 const IDLE_DRIFT_RANGE = 0.8;
 const IDLE_DRIFT_INTERVAL = 3200;
 const IDLE_THRESHOLD = 1800;
 const CENTER_DELAY = 120;
-const MOVEMENT_FACTOR_X = 0.012;
-const MOVEMENT_FACTOR_Y = 0.01;
+const MOVEMENT_FACTOR_X = 0.1;
+const MOVEMENT_FACTOR_Y = 0.1;
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);

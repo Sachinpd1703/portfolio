@@ -34,8 +34,12 @@ export type CharacterSvgGroupId =
   // Individual sub-elements (eye tracking + blink opacity)
   | "eye-highlight-left"
   | "eye-highlight-right"
+  // Specular reflection groups (move with pupil)
+  | "eye-reflection-left"
+  | "eye-reflection-right"
   | "eyebrow-left"
   | "eyebrow-right"
+  | "spectacles"
   | "mouth-neutral"
   | "mouth-smile"
   | "mouth-angry";

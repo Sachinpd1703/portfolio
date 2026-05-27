@@ -72,7 +72,7 @@ export const reducedCharacterMotion = {
 };
 
 export const eyeSpring = {
-  stiffness: 110,
+  stiffness: 500,
   damping: 18,
   mass: 0.28,
 } as const;

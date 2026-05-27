@@ -28,7 +28,7 @@ export default function BackgroundClouds() {
   const MOVE_STRENGTH_Y = 0.06;
 
   // background cloud transparency
-  const CLOUD_OPACITY = 0.5;
+  const CLOUD_OPACITY = 1;
 
   // =========================================
 

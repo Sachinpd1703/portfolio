@@ -38,7 +38,7 @@ export default function HeroContent() {
       >
         <motion.h1
           initial={{ opacity: 0 }}
-          animate={{ opacity: 0.14 }}
+          animate={{ opacity: 0.15 }}
           transition={{ duration: 1.5 }}
           className="
             text-[24vw]

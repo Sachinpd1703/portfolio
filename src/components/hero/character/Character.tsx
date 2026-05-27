@@ -40,7 +40,7 @@ export default function Character({
   minWidth = "160px",
   translateX = "-50%",
   translateY = "-50%",
-  scale = 2,
+  scale = 3,
 }: CharacterProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [hoverExpression, setHoverExpression] = useState<Expression | null>(

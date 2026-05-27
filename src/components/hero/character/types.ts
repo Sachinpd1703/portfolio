@@ -28,6 +28,8 @@ export type CharacterSvgGroupId =
   | "eye-close-mid-right"
   | "eye-close-full-left"
   | "eye-close-full-right"
+  | "eye-highlight-left"
+  | "eye-highlight-right"
   | "eyebrow-left"
   | "eyebrow-right"
   | "mouth-neutral"

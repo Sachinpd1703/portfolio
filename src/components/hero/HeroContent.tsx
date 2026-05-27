@@ -9,7 +9,6 @@ export default function HeroContent() {
     <div
       className="
         relative
-        z-40
         mx-auto
         flex
         min-h-screen
@@ -31,7 +30,7 @@ export default function HeroContent() {
           absolute
           left-1/2
           top-1/2
-          z-0
+          z-10
           -translate-x-1/2
           -translate-y-1/2
           select-none
@@ -69,7 +68,7 @@ export default function HeroContent() {
           absolute
           left-[10%]
           top-1/4
-          z-20
+          z-50
           -translate-y-1/2
         "
       >
@@ -116,7 +115,7 @@ export default function HeroContent() {
           absolute
           bottom-[15%]
           right-[10%]
-          z-70
+          z-50
           text-right
         "
       >
@@ -129,9 +128,9 @@ export default function HeroContent() {
             md:text-4xl
           "
         >
-          Creative frontend
+          Software Developer
           <br />
-          developer
+          and Full stack developer
         </p>
       </motion.div>
     </div>

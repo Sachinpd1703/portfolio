@@ -31,7 +31,15 @@ const nextConfig: NextConfig = {
               /url/,
             ],
           },
-          use: ["@svgr/webpack"],
+          use: [
+            {
+              loader: "@svgr/webpack",
+              options: {
+                dimensions: false,
+                svgo: false,
+              },
+            },
+          ],
         },
       );
 

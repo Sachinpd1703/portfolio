@@ -3,7 +3,7 @@
 "use client";
 
 import { motion, useSpring } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import useMousePosition from "@/hooks/useMousePosition";
 
@@ -11,6 +11,7 @@ import HeroCloudsSvg from "./svg/hero-clouds.svg";
 
 export default function HeroClouds() {
   const { x, y } = useMousePosition();
+  const [center, setCenter] = useState({ x: 0, y: 0 });
 
   // =========================
   // MANUAL TUNING CONTROLS
@@ -29,12 +30,15 @@ export default function HeroClouds() {
 
   // =========================
 
-  const centerX = typeof window !== "undefined" ? window.innerWidth / 2 : 0;
+  useEffect(() => {
+    setCenter({
+      x: window.innerWidth / 2,
+      y: window.innerHeight / 2,
+    });
+  }, []);
 
-  const centerY = typeof window !== "undefined" ? window.innerHeight / 2 : 0;
-
-  const moveX = (x - centerX) * MOVE_STRENGTH_X;
-  const moveY = (y - centerY) * MOVE_STRENGTH_Y;
+  const moveX = (x - center.x) * MOVE_STRENGTH_X;
+  const moveY = (y - center.y) * MOVE_STRENGTH_Y;
 
   const springX = useSpring(BASE_X + moveX, {
     stiffness: 45,
@@ -54,14 +58,14 @@ export default function HeroClouds() {
   }, [moveX, moveY, springX, springY]);
 
   return (
-    <div className="pointer-events-none absolute inset-0 isolate overflow-hidden z-50">
+    <div className="pointer-events-none absolute inset-0 overflow-hidden z-40">
       <motion.div
         style={{
           x: springX,
           y: springY,
           scale: CLOUD_SCALE,
         }}
-        className="absolute top-1/2 left-1/2 h-[160vh] w-[160vw] -translate-x-1/2 -translate-y-1/2 will-change-transform z-40"
+        className="absolute top-1/2 left-1/2 h-[160vh] w-[160vw] -translate-x-1/2 -translate-y-1/2 will-change-transform"
       >
         <HeroCloudsSvg className="h-full w-full text-[#19202F] opacity-100 mix-blend-normal" />
       </motion.div>

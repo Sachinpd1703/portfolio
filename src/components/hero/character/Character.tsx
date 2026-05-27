@@ -71,7 +71,7 @@ export default function Character({
   return (
     <div
       ref={containerRef}
-      className={`absolute z-50 select-none ${className}`}
+      className={`absolute z-20 select-none ${className}`}
       onPointerEnter={(event) =>
         setHoverExpression(resolveHoverExpression(event) ?? "focused")
       }

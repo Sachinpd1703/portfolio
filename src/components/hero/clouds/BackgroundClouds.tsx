@@ -3,7 +3,7 @@
 "use client";
 
 import { motion, useSpring } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import useMousePosition from "@/hooks/useMousePosition";
 
@@ -28,22 +28,21 @@ export default function BackgroundClouds() {
   const MOVE_STRENGTH_Y = 0.06;
 
   // background cloud transparency
-  const CLOUD_OPACITY = 5;
+  const CLOUD_OPACITY = 0.5;
 
   // =========================================
 
-  const centerX =
-    typeof window !== "undefined"
-      ? window.innerWidth / 2
-      : 0;
+  const [center, setCenter] = useState({ x: 0, y: 0 });
 
-  const centerY =
-    typeof window !== "undefined"
-      ? window.innerHeight / 2
-      : 0;
+  useEffect(() => {
+    setCenter({
+      x: window.innerWidth / 2,
+      y: window.innerHeight / 2,
+    });
+  }, []);
 
-  const moveX = (x - centerX) * MOVE_STRENGTH_X;
-  const moveY = (y - centerY) * MOVE_STRENGTH_Y;
+  const moveX = (x - center.x) * MOVE_STRENGTH_X;
+  const moveY = (y - center.y) * MOVE_STRENGTH_Y;
 
   const springX = useSpring(BASE_X + moveX, {
     stiffness: 35,

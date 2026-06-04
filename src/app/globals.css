@@ -20,3 +20,7 @@ body {
   color: var(--foreground);
   overflow-x: hidden;
 }
+
+.animate-scroll-clouds {
+  animation: var(--animation-scroll-clouds);
+}

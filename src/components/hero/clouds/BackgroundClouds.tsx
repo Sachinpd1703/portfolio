@@ -21,7 +21,7 @@ export default function BackgroundClouds() {
 
   // default positioning
   const BASE_X = -50;
-  const BASE_Y = 50;
+  const BASE_Y = 20;
 
   // subtle distant movement
   const MOVE_STRENGTH_X = 0.06;
@@ -32,13 +32,12 @@ export default function BackgroundClouds() {
 
   // =========================================
 
-  const [center, setCenter] = useState({ x: 0, y: 0 });
+  const [center, setCenter] = useState(() => ({
+    x: typeof window === "undefined" ? 0 : window.innerWidth / 2,
+    y: typeof window === "undefined" ? 0 : window.innerHeight / 2,
+  }));
 
   useEffect(() => {
-    setCenter({
-      x: window.innerWidth / 2,
-      y: window.innerHeight / 2,
-    });
   }, []);
 
   const moveX = (x - center.x) * MOVE_STRENGTH_X;

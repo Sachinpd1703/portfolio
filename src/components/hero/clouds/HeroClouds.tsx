@@ -9,8 +9,13 @@ import useMousePosition from "@/hooks/useMousePosition";
 
 import HeroCloudsSvg from "./svg/hero-clouds.svg";
 
-export default function HeroClouds() {
+type HeroCloudsProps = {
+  baseY?: number;
+};
+
+export default function HeroClouds({ baseY }: HeroCloudsProps) {
   const { x, y } = useMousePosition();
+  // Start with deterministic values to avoid SSR/client hydration mismatches
   const [center, setCenter] = useState({ x: 0, y: 0 });
 
   // =========================
@@ -22,7 +27,7 @@ export default function HeroClouds() {
 
   // default positioning
   const BASE_X = -15;
-  const BASE_Y = 300;
+  const BASE_Y = baseY ?? 300;
 
   // cursor movement strength
   const MOVE_STRENGTH_X = 0.1;
@@ -30,11 +35,10 @@ export default function HeroClouds() {
 
   // =========================
 
+  // On client mount, measure the viewport center once
   useEffect(() => {
-    setCenter({
-      x: window.innerWidth / 2,
-      y: window.innerHeight / 2,
-    });
+    if (typeof window === "undefined") return;
+    setCenter({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
   }, []);
 
   const moveX = (x - center.x) * MOVE_STRENGTH_X;

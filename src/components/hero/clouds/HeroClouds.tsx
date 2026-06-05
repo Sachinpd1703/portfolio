@@ -15,10 +15,8 @@ type HeroCloudsProps = {
 
 export default function HeroClouds({ baseY }: HeroCloudsProps) {
   const { x, y } = useMousePosition();
-  const [center, setCenter] = useState(() => ({
-    x: typeof window === "undefined" ? 0 : window.innerWidth / 2,
-    y: typeof window === "undefined" ? 0 : window.innerHeight / 2,
-  }));
+  // Start with deterministic values to avoid SSR/client hydration mismatches
+  const [center, setCenter] = useState({ x: 0, y: 0 });
 
   // =========================
   // MANUAL TUNING CONTROLS
@@ -37,7 +35,10 @@ export default function HeroClouds({ baseY }: HeroCloudsProps) {
 
   // =========================
 
+  // On client mount, measure the viewport center once
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    setCenter({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
   }, []);
 
   const moveX = (x - center.x) * MOVE_STRENGTH_X;

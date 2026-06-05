@@ -32,12 +32,12 @@ export default function BackgroundClouds() {
 
   // =========================================
 
-  const [center, setCenter] = useState(() => ({
-    x: typeof window === "undefined" ? 0 : window.innerWidth / 2,
-    y: typeof window === "undefined" ? 0 : window.innerHeight / 2,
-  }));
+  // deterministic initial center to avoid SSR/client hydration mismatch
+  const [center, setCenter] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    setCenter({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
   }, []);
 
   const moveX = (x - center.x) * MOVE_STRENGTH_X;

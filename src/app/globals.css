@@ -12,13 +12,26 @@ html {
 body {
   background: radial-gradient(
     circle at top,
-    #6118ff 0%,
+    #4c1ae4 0%,
     #123173 45%,
     #505082 100%
   );
 
   color: var(--foreground);
   overflow-x: hidden;
+}
+
+/* Hide default vertical scrollbar but keep scrolling usable */
+/* Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+/* Firefox */
+body {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .animate-scroll-clouds {

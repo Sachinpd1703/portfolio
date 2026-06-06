@@ -115,7 +115,7 @@ export default function HeroContent() {
           absolute
           bottom-[15%]
           right-[10%]
-          z-50
+          z-60
           text-right
         "
       >

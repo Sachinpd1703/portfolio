@@ -5,7 +5,7 @@ import About from "@/components/about/About";
 
 export default function Home() {
   return (
-    <main className="relative bg-slate-900">
+    <main className="relative">
       <Navbar />
       <Hero />
       <About />

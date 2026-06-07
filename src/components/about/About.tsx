@@ -69,30 +69,38 @@ export default function About() {
         }
       };
 
-      // --- SCROLL ENTRY / EXIT EFFECT ---
+// --- SCROLL ENTRY / EXIT ANIMATIONS ---
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "top 65%",
-        end: "top top",
+        end: "bottom 15%", // Allows it to trigger when leaving the bottom of the section
         snap: {
           snapTo: 1,
           duration: { min: 0.9, max: 3.2 },
           delay: 0.1,
           ease: "power2.out",
         },
+        // Scrolling DOWN into About
         onEnter: () => {
           if (!hasEnteredRef.current) {
-            // First time loading: set states to trigger the component builds
             hasEnteredRef.current = true;
             setHasEntered(true);
           } else {
-            // Re-entering from Hero section: Play forward at normal speed
-            activeTimelineRef.current?.timeScale(1).play();
+            // Play from the beginning (0) at normal speed
+            activeTimelineRef.current?.timeScale(1).play(0);
           }
         },
+        // Scrolling UP into About (From Contact section)
+        onEnterBack: () => {
+          activeTimelineRef.current?.timeScale(1).play(0);
+        },
+        // Scrolling DOWN away from About (To Contact section)
+        onLeave: () => {
+          // Reverse the animation smoothly to hide it
+          activeTimelineRef.current?.timeScale(1.5).reverse();
+        },
+        // Scrolling UP away from About (Back to Hero)
         onLeaveBack: () => {
-          // Scrolling back up to Hero: Reverse the animation smoothly!
-          // 1.5x speed is slightly faster than normal, but slower than tab switching
           activeTimelineRef.current?.timeScale(1.5).reverse();
         },
       });
@@ -115,36 +123,38 @@ export default function About() {
     };
   }, []);
 
-  // --- TAB SWITCHING EFFECT ---
+  // --- TAB SWITCHING EXIT ANIMATION ---
   useEffect(() => {
     if (activePersonality === renderedPersonality) return;
 
     let isCancelled = false;
 
-    // If it hasn't entered yet, just swap instantly
-    if (!hasEntered || !activeTimelineRef.current) {
+    // If it hasn't loaded yet, swap instantly
+    if (!hasEntered || !rootRef.current) {
       setRenderedPersonality(activePersonality);
       return;
     }
 
-    const tl = activeTimelineRef.current;
-
-    // 1. Clear any previous reverse callbacks to prevent bugs
-    tl.eventCallback("onReverseComplete", null);
-
-    // 2. Play the entry animation backwards! (Speed it up 2.5x for snappy UI)
-    tl.timeScale(2.5).reverse();
-
-    // 3. Wait for the reverse to finish, then swap the UI component
-    tl.eventCallback("onReverseComplete", () => {
-      if (!isCancelled) {
-        setRenderedPersonality(activePersonality);
-      }
+    // Explicit, highly-visible Exit Animation
+    gsap.to(rootRef.current, {
+      y: 40,               // Drops down
+      opacity: 0,          // Fades out
+      scale: 0.95,         // Shrinks slightly
+      filter: "blur(8px)", // Cinematic blur
+      duration: 0.35,      // Fast but perceptible
+      ease: "power2.in",   // Accelerates out
+      onComplete: () => {
+        if (!isCancelled) {
+          // Once the exit is done, swap the component!
+          // The new component's entry animation will automatically reset the blur/opacity.
+          setRenderedPersonality(activePersonality);
+        }
+      },
     });
 
     return () => {
       isCancelled = true;
-      tl.eventCallback("onReverseComplete", null);
+      gsap.killTweensOf(rootRef.current);
     };
   }, [activePersonality, renderedPersonality, hasEntered]);
 

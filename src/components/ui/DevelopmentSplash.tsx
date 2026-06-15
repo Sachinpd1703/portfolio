@@ -86,7 +86,7 @@ export default function DevelopmentSplash() {
                 Still in development
               </h1>
               <p className="text-gray-400 max-w-md text-sm md:text-base">
-                I'm currently crafting this experience. Some sections might be incomplete, but feel free to explore the progress.
+                I'm currently crafting this experience. Some sections might be incomplete, <strong>adjust screen size for better experience</strong>,but feel free to explore the progress.
               </p>
               <motion.button
                 whileHover={{ scale: 1.05 }}

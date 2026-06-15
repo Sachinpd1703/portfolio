@@ -58,8 +58,26 @@ export default function AboutFloatingMenu({
     };
   }, []);
 
+  // Listens for the GSAP ScrollTrigger to force the menu open
+  useEffect(() => {
+    const handleForceOpen = () => {
+      clearCloseTimer();
+      setIsExpanded(true);
+      
+      // Optional: Auto-collapse it after 2 seconds if they don't interact
+      closeTimerRef.current = window.setTimeout(() => {
+        setIsExpanded(false);
+        closeTimerRef.current = null;
+      }, 2500); 
+    };
+
+    window.addEventListener("force-menu-open", handleForceOpen);
+    return () => window.removeEventListener("force-menu-open", handleForceOpen);
+  }, []);
+
   return (
     <div
+      id="about-floating-menu"
       aria-hidden={!isVisible}
       className={[
         "fixed bottom-8 left-8 z-50 flex h-14 items-center overflow-hidden border border-cyan-300/40 bg-slate-950/70 text-white shadow-[0_0_34px_rgba(34,211,238,0.45)] backdrop-blur-xl transition-all duration-500 ease-out",

@@ -28,7 +28,7 @@ export const viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -55,14 +55,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <style
           dangerouslySetInnerHTML={{
             __html: `
+              /* This CSS runs instantly before the page is even parsed */
               .splash-active body {
                 overflow: hidden !important;
-                visibility: hidden !important;
               }
-              /* Keep splash screen itself visible even if body is hidden */
               .splash-active #critical-splash-shield {
-                visibility: visible !important;
                 display: flex !important;
+                background: #111827 !important;
+                visibility: visible !important;
+                opacity: 1 !important;
               }
             `,
           }}

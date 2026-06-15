@@ -57,6 +57,8 @@ export default function DevelopmentSplash() {
     };
     localStorage.setItem("devSplashData", JSON.stringify(visitData));
     setIsVisible(false);
+    // Remove the class so the site becomes visible and scrollable
+    document.documentElement.classList.remove("splash-active");
   };
 
   // If we've checked and it shouldn't be visible, don't render anything
@@ -66,7 +68,8 @@ export default function DevelopmentSplash() {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          initial={false} // Don't animate the initial mount, it should just BE there
+          id="critical-splash-shield"
+          initial={false}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#111827] text-white p-4 text-center"

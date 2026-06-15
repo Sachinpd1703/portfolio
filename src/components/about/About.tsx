@@ -70,13 +70,20 @@ export default function About() {
       };
 
 // --- SCROLL ENTRY / EXIT ANIMATIONS ---
+      let hasPulsed = false;
+      let stormTriggered = false;
+      let stormTl: gsap.core.Timeline | null = null;
+
       ScrollTrigger.create({
         trigger: sectionRef.current,
-        start: "top 65%",
-        end: "bottom 15%", // Allows it to trigger when leaving the bottom of the section
+        start: "top top",
+        // Increase the end distance to include the project transition duration and panel panning
+        // 2000px (Interaction) + 3000px (Projects Slide + Pan)
+        end: "+=5000", 
+        pin: true,
         snap: {
-          snapTo: 1,
-          duration: { min: 0.9, max: 3.2 },
+          snapTo: [0, 1], // Snaps to either the start or the end of the pin
+          duration: { min: 0.9, max: 2.0 },
           delay: 0.1,
           ease: "power2.out",
         },
@@ -89,19 +96,61 @@ export default function About() {
             // Play from the beginning (0) at normal speed
             activeTimelineRef.current?.timeScale(1).play(0);
           }
+
+          // Initial Pulse on entry
+          if (!hasPulsed) {
+            hasPulsed = true;
+            window.dispatchEvent(new Event("force-menu-open"));
+            gsap.fromTo(
+              "#about-floating-menu",
+              { boxShadow: "0px 0px 0px rgba(34,211,238,0)" },
+              { 
+                boxShadow: "0px 0px 40px rgba(34,211,238,0.8)", 
+                yoyo: true, 
+                repeat: 3, 
+                duration: 0.2, 
+                ease: "power2.out" 
+              }
+            );
+          }
         },
-        // Scrolling UP into About (From Contact section)
+        // Scrolling UP into About (From Projects section)
         onEnterBack: () => {
           activeTimelineRef.current?.timeScale(1).play(0);
+
+          // User scrolled back up! Fix the stuck storm wipe!
+          if (stormTriggered) {
+            stormTriggered = false;
+            if (stormTl) stormTl.kill(); 
+            gsap.to("#storm-wipe", { opacity: 0, scale: 0, duration: 0.5, ease: "power2.out" });
+          }
         },
-        // Scrolling DOWN away from About (To Contact section)
+        // Scrolling DOWN away from About (To Projects section)
         onLeave: () => {
           // Reverse the animation smoothly to hide it
           activeTimelineRef.current?.timeScale(1.5).reverse();
+
+          // Trigger the Storm Wipe transition as we leave
+          if (!stormTriggered) {
+            stormTriggered = true;
+            stormTl = gsap.timeline();
+            stormTl.to("#storm-wipe", {
+              opacity: 1,
+              scale: 150, 
+              duration: 1.2,
+              ease: "expo.inOut"
+            }, 0)
+            .to("#storm-wipe", {
+              opacity: 0,
+              duration: 0.8,
+              ease: "power2.inOut"
+            }, "+=0.2"); 
+          }
         },
         // Scrolling UP away from About (Back to Hero)
         onLeaveBack: () => {
           activeTimelineRef.current?.timeScale(1.5).reverse();
+          hasPulsed = false; // Reset pulse so it can trigger again next time
         },
       });
 
@@ -226,8 +275,9 @@ export default function About() {
 
   return (
     <section
+      id="about-section"
       ref={sectionRef}
-      className="noise relative z-20 flex min-h-[120vh] items-center justify-center overflow-hidden bg-blue-950"
+      className="noise relative z-20 flex h-screen items-center justify-center overflow-hidden bg-blue-950"
     >
       <BackgroundAbout />
       <div className="pointer-events-none absolute top-0 right-0 left-0 z-30 h-12.5 w-full bg-[#19202F]" />

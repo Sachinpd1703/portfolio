@@ -29,6 +29,45 @@ export const viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const visitData = localStorage.getItem("devSplashData");
+                  const TEN_MINUTES = 10 * 60 * 1000;
+                  let shouldShow = true;
+                  if (visitData) {
+                    const { timestamp } = JSON.parse(visitData);
+                    if (new Date().getTime() - timestamp <= TEN_MINUTES) {
+                      shouldShow = false;
+                    }
+                  }
+                  if (shouldShow) {
+                    document.documentElement.classList.add('splash-active');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              .splash-active body {
+                overflow: hidden !important;
+                visibility: hidden !important;
+              }
+              /* Keep splash screen itself visible even if body is hidden */
+              .splash-active #critical-splash-shield {
+                visibility: visible !important;
+                display: flex !important;
+              }
+            `,
+          }}
+        />
+      </head>
       <body>
         <DevelopmentSplash />
         <ScrollProvider>

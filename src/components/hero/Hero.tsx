@@ -14,7 +14,7 @@ export default function Hero() {
        This is a normal relative section that takes up exactly 1 screen height (h-screen). 
        Because it is relative and NOT sticky, it will scroll up naturally.
     */
-    <section className="relative w-full h-screen z-0">
+    <section id="hero-section" className="relative w-full h-screen z-0">
       
       {/* THE FROZEN LAYER
           'fixed inset-0' pins this entire block exactly to the user's monitor.

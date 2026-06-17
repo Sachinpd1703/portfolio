@@ -52,53 +52,43 @@ export default function About() {
 
       if (!sectionRef.current) return;
 
-      const updateMenuVisibility = () => {
-        if (!sectionRef.current) return;
-
-        const rect = sectionRef.current.getBoundingClientRect();
-        const visibleTop = Math.max(rect.top, 0);
-        const visibleBottom = Math.min(rect.bottom, window.innerHeight);
-        const visiblePixels = Math.max(0, visibleBottom - visibleTop);
-        const visibleRatio = visiblePixels / rect.height;
-        const shouldShowMenu = visibleRatio >= 0.6;
-
-        // Show the fixed menu only after 60% of the About section is visible.
-        if (menuVisibleRef.current !== shouldShowMenu) {
-          menuVisibleRef.current = shouldShowMenu;
-          setIsMenuVisible(shouldShowMenu);
-        }
-      };
-
-// --- SCROLL ENTRY / EXIT ANIMATIONS ---
+      // --- SCROLL ENTRY / EXIT ANIMATIONS ---
       let hasPulsed = false;
       let stormTriggered = false;
       let stormTl: gsap.core.Timeline | null = null;
 
+      // 1. Snapping between Hero and About
+      ScrollTrigger.create({
+        trigger: "#hero-section",
+        start: "top top",
+        end: "bottom top",
+        snap: {
+          snapTo: [0, 1],
+          duration: { min: 0.5, max: 0.8 },
+          delay: 0.1,
+          ease: "power1.inOut",
+        },
+      });
+
+      // 2. Main About Interaction & Pinning
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "top top",
-        // Increase the end distance to include the project transition duration and panel panning
-        // 2000px (Interaction) + 3000px (Projects Slide + Pan)
         end: "+=5000", 
         pin: true,
-        snap: {
-          snapTo: [0, 1], // Snaps to either the start or the end of the pin
-          duration: { min: 0.9, max: 2.0 },
-          delay: 0.1,
-          ease: "power2.out",
-        },
         // Scrolling DOWN into About
         onEnter: () => {
+          setIsMenuVisible(true);
           if (!hasEnteredRef.current) {
             hasEnteredRef.current = true;
             setHasEntered(true);
           } else {
-            // Play from the beginning (0) at normal speed
             activeTimelineRef.current?.timeScale(1).play(0);
           }
-
-          // Initial Pulse on entry
-          if (!hasPulsed) {
+        },
+        onUpdate: (self) => {
+          // Trigger the EXPANSION and PULSE only after scrolling ~15%
+          if (self.progress > 0.15 && !hasPulsed) {
             hasPulsed = true;
             window.dispatchEvent(new Event("force-menu-open"));
             gsap.fromTo(
@@ -116,6 +106,7 @@ export default function About() {
         },
         // Scrolling UP into About (From Projects section)
         onEnterBack: () => {
+          setIsMenuVisible(true);
           activeTimelineRef.current?.timeScale(1).play(0);
 
           // User scrolled back up! Fix the stuck storm wipe!
@@ -125,7 +116,6 @@ export default function About() {
             gsap.to("#storm-wipe", { opacity: 0, scale: 0, duration: 0.5, ease: "power2.out" });
           }
         },
-        // Scrolling DOWN away from About (To Projects section)
         onLeave: () => {
           // Reverse the animation smoothly to hide it
           activeTimelineRef.current?.timeScale(1.5).reverse();
@@ -158,12 +148,7 @@ export default function About() {
         trigger: sectionRef.current,
         start: "top bottom",
         end: "bottom top",
-        onRefresh: updateMenuVisibility,
-        onToggle: updateMenuVisibility,
-        onUpdate: updateMenuVisibility,
       });
-
-      updateMenuVisibility();
     }, sectionRef);
 
     return () => {
@@ -280,8 +265,8 @@ export default function About() {
       className="noise relative z-20 flex h-screen items-center justify-center overflow-hidden bg-blue-950"
     >
       <BackgroundAbout />
-      <div className="pointer-events-none absolute top-0 right-0 left-0 z-30 h-12.5 w-full bg-[#19202F]" />
-      <HeroClouds baseY={-460} />
+      {/* <div className="pointer-events-none absolute top-0 right-0 left-0 z-30 h-12.5 w-full bg-[#19202F]" /> */}
+      <HeroClouds baseY={-500} />
       {renderPersonality()}
       <AboutFloatingMenu
         activePersonality={activePersonality}

@@ -40,11 +40,11 @@ export default function Projects() {
       tl.to({}, { duration: 2 }); 
 
       // Stage 2: Slide the entire section in from the right (1000px)
-      tl.to(sectionRef.current, { autoAlpha: 1, duration: 0.1 })
+      tl.to(sectionRef.current, { autoAlpha: 1, duration: 0.01 })
         .to(slideContainerRef.current, {
           x: 0,
           ease: "none",
-          duration: 1, 
+          duration: 0.99, 
         });
 
       // Stage 3: Panning through the individual project panels (2000px)

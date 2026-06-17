@@ -35,10 +35,23 @@ export default function HeroClouds({ baseY }: HeroCloudsProps) {
 
   // =========================
 
-  // On client mount, measure the viewport center once
+  // On mount, measure center and listen for resizes
   useEffect(() => {
     if (typeof window === "undefined") return;
-    setCenter({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+
+    const handleResize = () => {
+      const newX = window.innerWidth / 2;
+      const newY = window.innerHeight / 2;
+      
+      setCenter(prev => {
+        if (prev.x === newX && prev.y === newY) return prev;
+        return { x: newX, y: newY };
+      });
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const moveX = (x - center.x) * MOVE_STRENGTH_X;
@@ -62,7 +75,7 @@ export default function HeroClouds({ baseY }: HeroCloudsProps) {
   }, [moveX, moveY, springX, springY]);
 
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden z-40">
+    <div className="pointer-events-none absolute inset-0 overflow-hidden z-10">
       <motion.div
         style={{
           x: springX,

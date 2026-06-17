@@ -21,39 +21,6 @@ export default function HeroContent() {
       "
     >
       {/* ========================================= */}
-      {/* BIG BACKGROUND TYPOGRAPHY */}
-      {/* ========================================= */}
-
-      <div
-        className="
-          pointer-events-none
-          absolute
-          left-1/2
-          top-1/2
-          z-10
-          -translate-x-1/2
-          -translate-y-1/2
-          select-none
-        "
-      >
-        <motion.h1
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.15 }}
-          transition={{ duration: 1.5 }}
-          className="
-            text-[24vw]
-            font-black
-            uppercase
-            leading-none
-            tracking-[-0.08em]
-            text-white
-          "
-        >
-          SACHIN
-        </motion.h1>
-      </div>
-
-      {/* ========================================= */}
       {/* LEFT CONTENT */}
       {/* ========================================= */}
 

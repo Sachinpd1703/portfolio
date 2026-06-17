@@ -262,7 +262,7 @@ export default function About() {
     <section
       id="about-section"
       ref={sectionRef}
-      className="noise relative z-20 flex h-screen items-center justify-center overflow-hidden bg-blue-950"
+      className="noise relative z-30 flex h-screen items-center justify-center overflow-hidden bg-blue-950"
     >
       <BackgroundAbout />
       {/* <div className="pointer-events-none absolute top-0 right-0 left-0 z-30 h-12.5 w-full bg-[#19202F]" /> */}

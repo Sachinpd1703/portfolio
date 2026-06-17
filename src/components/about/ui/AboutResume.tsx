@@ -1,3 +1,4 @@
+// src/components/about/ui/AboutResume.tsx
 "use client";
 
 import { useState, useRef } from "react";

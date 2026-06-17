@@ -16,7 +16,7 @@ export default function AboutVideo({
   return (
     <div
       ref={rootRef}
-      className="relative z-40 mx-auto flex min-h-screen w-full max-w-6xl flex-col items-center justify-center px-4 pt-52 opacity-0 md:px-8"
+      className="relative z-30 mx-auto flex min-h-screen w-full max-w-6xl flex-col items-center justify-center px-4 pt-28 opacity-0 md:px-8"
     >
       <div
         ref={frameRef}

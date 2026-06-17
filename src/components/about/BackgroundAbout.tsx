@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function BackgroundAbout() {
   return (
-    <div className="absolute top-0 left-0 right-0 w-full pointer-events-none overflow-hidden z-10 -translate-y-[-50px]">
+    <div className="absolute top-0 left-0 right-0 w-full pointer-events-none overflow-hidden z-10 -translate-y-[30px]">
       
       {/* 1. THE BULLETPROOF FIX: 
           We define the keyframes directly inside the component using a style block. 

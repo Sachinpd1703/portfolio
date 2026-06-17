@@ -44,9 +44,9 @@ export default function AboutResume({
   // RESUME CARD CONTROL PANEL
   // ==========================================
   const resumeControls = {
-    scale: 1,               
+    scale: 0.9,               
     xOffset: 0,             
-    yOffset: 30,            
+    yOffset: -50,            
     contentTopPadding: 180, 
   };
   // ==========================================

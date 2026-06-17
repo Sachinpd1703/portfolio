@@ -12,10 +12,13 @@ export default function ScrollProvider({ children }: { children: React.ReactNode
     // 1. Register the ScrollTrigger plugin with GSAP
     gsap.registerPlugin(ScrollTrigger);
 
+    // Optional: Normalize scroll behavior across devices
+    ScrollTrigger.normalizeScroll(true);
+
     // 2. Initialize Lenis smooth scrolling
     const lenis = new Lenis({
-      duration: 1.2, // Higher numbers = smoother/slower momentum
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom cinematic easing curve
+      duration: 0.8,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: true,
@@ -23,20 +26,20 @@ export default function ScrollProvider({ children }: { children: React.ReactNode
 
     lenisRef.current = lenis;
 
-    // 3. Connect Lenis to GSAP's ticker so they sync perfectly frame-by-frame
+    // 3. Connect Lenis to GSAP's ticker
     lenis.on("scroll", ScrollTrigger.update);
 
-    gsap.ticker.add((time) => {
+    const updateRaf = (time: number) => {
       lenis.raf(time * 1000);
-    });
+    };
+
+    gsap.ticker.add(updateRaf);
 
     gsap.ticker.lagSmoothing(0);
 
     return () => {
       lenis.destroy();
-      gsap.ticker.remove((time) => {
-        lenis.raf(time * 1000);
-      });
+      gsap.ticker.remove(updateRaf);
     };
   }, []);
 

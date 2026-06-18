@@ -69,8 +69,8 @@ export function playResumeEntry({
   });
   timeline.fromTo(
     node(panelRef),
-    { autoAlpha: 0, y: 80, scale: 0.94, filter: "blur(14px)" },
-    { autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)" },
+    { autoAlpha: 0, y: 40, scale: 0.85, filter: "blur(14px)" },
+    { autoAlpha: 1, y: -40, scale: 0.9, filter: "blur(0px)" },
     0,
   );
   timeline.fromTo(

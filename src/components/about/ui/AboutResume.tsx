@@ -46,7 +46,7 @@ export default function AboutResume({
   const resumeControls = {
     scale: 0.9,               
     xOffset: 0,             
-    yOffset: -50,            
+    yOffset: -40,            
     contentTopPadding: 180, 
   };
   // ==========================================
